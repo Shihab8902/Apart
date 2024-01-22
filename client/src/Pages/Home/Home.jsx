@@ -1,8 +1,10 @@
+import Nav from "../../Components/Nav/Nav"
 
 const Home = () => {
-    return (
-        <div>Home</div>
-    )
+    return <section className="container mx-auto px-5 ">
+        <Nav />
+
+    </section>
 }
 
 export default Home
