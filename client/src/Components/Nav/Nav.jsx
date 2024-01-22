@@ -13,13 +13,13 @@ const Nav = () => {
     }
 
 
-    return <nav className='flex justify-between sticky top-0  bg-white items-center py-6'>
+    return <nav className='flex justify-between container mx-auto px-5  items-center py-6'>
 
         <div>
-            <Link className='text-3xl font-bold ' to="/">Apart<span className=' text-blue-500'>.</span></Link>
+            <Link className='text-3xl font-bold text-white' to="/">Apart<span className=' text-blue-500'>.</span></Link>
         </div>
 
-        <ul className='hidden lg:flex gap-10' >
+        <ul className='hidden lg:flex gap-10 text-white' >
             <li className='font-bold text-lg hover:underline'><Link to="/">Home</Link></li>
             <li className='font-bold text-lg hover:underline'><Link to="/about">About</Link></li>
             <li className='font-bold text-lg hover:underline'><Link to="/houses">Houses</Link></li>
@@ -28,7 +28,7 @@ const Nav = () => {
 
 
         <div className='lg:hidden '>
-            <button className='text-3xl' onClick={handleMenuToggle}><IoMenuSharp /></button>
+            <button className='text-3xl text-white' onClick={handleMenuToggle}><IoMenuSharp /></button>
 
             <div className={`fixed top-0 right-0 bg-slate-700 transition-all duration-500 ${isMenuOpen ? " translate-x-0" : " translate-x-full"}  text-white h-screen  w-3/4 md:w-1/2 px-6 py-5 z-50`}>
                 <div className='flex justify-end'>
