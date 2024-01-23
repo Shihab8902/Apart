@@ -8,6 +8,9 @@ const getHouses = async (req, res) => {
         const city = req.query.city;
         const size = req.query.size;
         const bedRooms = req.query.bedRooms;
+        const bathrooms = req.query.bathrooms;
+        const minRent = req.query.minRent;
+        const maxRent = req.query.maxRent;
 
 
         //Show only available houses
@@ -93,6 +96,38 @@ const getHouses = async (req, res) => {
             }
         }
 
+        //Show data based on bathrooms
+        if (bathrooms) {
+            switch (bathrooms) {
+                case "any": {
+                    const result = await houseCollection.find().limit(limit).skip(limit * page).sort({ listedOn: -1 });
+                    return res.status(200).send(result);
+                }
+                case "0, 2": {
+                    const ranges = bathrooms?.split(",");
+                    const result = await houseCollection.find({ bathrooms: { $gte: parseInt(ranges[0]), $lte: parseInt(ranges[1]) } }).limit(limit).skip(limit * page).sort({ listedOn: -1 });
+                    return res.status(200).send(result);
+                }
+                case "3, 5": {
+                    const ranges = bathrooms?.split(",");
+                    const result = await houseCollection.find({ bathrooms: { $gte: parseInt(ranges[0]), $lte: parseInt(ranges[1]) } }).limit(limit).skip(limit * page).sort({ listedOn: -1 });
+                    return res.status(200).send(result);
+                }
+                case "5": {
+                    const result = await houseCollection.find({ bathrooms: { $gte: 5 } }).limit(limit).skip(limit * page).sort({ listedOn: -1 });
+                    return res.status(200).send(result);
+                }
+
+            }
+        }
+
+
+
+        //Show data based on rent
+        if (parseInt(minRent) > 400 || parseInt(maxRent) < 12000) {
+            const result = await houseCollection.find({ rentPerMonth: { $gte: parseInt(minRent), $lte: parseInt(maxRent) } }).limit(limit).skip(limit * page).sort({ listedOn: -1 });
+            return res.status(200).send(result);
+        }
 
 
 

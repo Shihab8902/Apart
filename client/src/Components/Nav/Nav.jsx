@@ -21,7 +21,6 @@ const Nav = () => {
 
         <ul className='hidden lg:flex gap-10 text-white' >
             <li className='font-bold text-lg hover:underline'><Link to="/">Home</Link></li>
-            <li className='font-bold text-lg hover:underline'><Link to="/about">About</Link></li>
             <li className='font-bold text-lg hover:underline'><Link to="/houses">Houses</Link></li>
             <li className='font-bold text-lg hover:underline'><Link to="/login">Login</Link></li>
         </ul>
@@ -36,7 +35,6 @@ const Nav = () => {
                 </div>
                 <ul className='mt-10'>
                     <li onClick={handleMenuToggle} className='mt-5 font-semibold'><Link to="/">Home</Link></li>
-                    <li onClick={handleMenuToggle} className='mt-5 font-semibold'><Link to="/about">About</Link></li>
                     <li onClick={handleMenuToggle} className='mt-5 font-semibold'><Link to="/houses">Houses</Link></li>
                     <li onClick={handleMenuToggle} className='mt-5 font-semibold'><Link to="/login">Login</Link></li>
                 </ul>

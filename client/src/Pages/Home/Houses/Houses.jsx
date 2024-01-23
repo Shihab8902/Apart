@@ -17,7 +17,9 @@ const Houses = () => {
     const [availableOnly, setAvailableOnly] = useState(false);
     const [selectedCity, setSelectedCity] = useState('');
     const [roomSize, setRoomSize] = useState('');
-    const [bedRooms, setBedRooms] = useState(null);
+    const [bedRooms, setBedRooms] = useState('');
+    const [bathRooms, setBathRooms] = useState('');
+    const [isFilteredByRent, setIsFilteredByRent] = useState(false);
 
 
     //Pagination
@@ -29,12 +31,12 @@ const Houses = () => {
 
 
     //Get House Data
-    const { data: houses, isPending, refetch } = useGetPublic(["houses"], `/api/houses?page=${currentPage}&limit=${dataPerPage}&availability=${availableOnly}&city=${selectedCity}&size=${roomSize}&bedRooms=${bedRooms}`);
+    const { data: houses, isPending, refetch } = useGetPublic(["houses"], `/api/houses?page=${currentPage}&limit=${dataPerPage}&availability=${availableOnly}&city=${selectedCity}&size=${roomSize}&bedRooms=${bedRooms}&bathrooms=${bathRooms}&minRent=${minRent}&maxRent=${maxRent}`);
 
     //Refetch data after certain filter
     useEffect(() => {
         refetch();
-    }, [currentPage, availableOnly, selectedCity, roomSize, bedRooms]);
+    }, [currentPage, availableOnly, selectedCity, roomSize, bedRooms, bathRooms, isFilteredByRent]);
 
 
 
@@ -154,24 +156,24 @@ const Houses = () => {
                                 <div>
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bathrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBathRooms("any")} type="radio" name="bathrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">Any</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bathrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBathRooms("0, 2")} type="radio" name="bathrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">0-2</span>
                                     </div>
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bathrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBathRooms("3, 5")} type="radio" name="bathrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">3-5</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bathrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBathRooms("5")} type="radio" name="bathrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">5+</span>
                                     </div>
 
@@ -195,15 +197,9 @@ const Houses = () => {
                                         <p className="font-bold">${maxRent}</p>
                                         <input type="range" min={400} max={12000} value={maxRent} onChange={(e) => setMaxRent(e.target.value)} className="cursor-pointer w-full" />
                                     </div>
-                                    <button className="mt-5 w-full py-2 bg-blue-600 text-xs text-white font-semibold rounded-full">Filter by selected range</button>
+                                    <button onClick={() => setIsFilteredByRent(!isFilteredByRent)} className="mt-5 w-full py-2 bg-blue-600 text-xs text-white font-semibold rounded-full">Filter by selected range</button>
                                 </div>
                             </div>
-
-
-
-
-
-
 
                         </aside >
                     </ul>

@@ -1,3 +1,4 @@
+import Footer from "../../Components/Footer/Footer"
 import Nav from "../../Components/Nav/Nav"
 import Banner from "./Banner/Banner"
 import Houses from "./Houses/Houses"
@@ -16,8 +17,7 @@ const Home = () => {
         <Houses />
 
 
-
-
+        <Footer />
     </section>
 }
 
