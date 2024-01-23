@@ -11,3 +11,21 @@ body {
     font-family: "Open Sans", sans-serif;
 
 }
+
+/* For Webkit browsers (Chrome, Safari) */
+.custom-thumb::-webkit-scrollbar {
+    width: 12px;
+
+}
+
+.custom-thumb::-webkit-scrollbar-thumb {
+    background-color: rgba(0, 0, 255, 0.701);
+    border-radius: 10px;
+
+}
+
+.custom-thumb::-webkit-scrollbar-track {
+    background-color: rgb(184, 174, 174);
+    border-radius: 10px;
+
+}

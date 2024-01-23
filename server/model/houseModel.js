@@ -30,7 +30,7 @@ const houseSchema = new mongoose.Schema({
         require: true
     },
     availabilityDate: {
-        type: Date || String,
+        type: mongoose.Schema.Types.Mixed,
         require: true
     },
     rentPerMonth: {
