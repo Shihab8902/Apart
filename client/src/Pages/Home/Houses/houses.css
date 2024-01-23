@@ -1,0 +1,16 @@
+.filter-control {
+    animation-name: filter-anim;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in-out;
+}
+
+@keyframes filter-anim {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(50px);
+    }
+}

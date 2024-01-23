@@ -16,7 +16,7 @@ const Nav = () => {
     return <nav className='flex justify-between container mx-auto px-5  items-center py-6'>
 
         <div>
-            <Link className='text-3xl font-bold text-white' to="/">Apart<span className=' text-blue-500'>.</span></Link>
+            <Link className='text-3xl font-bold text-white' to="/">House Hunter<span className=' text-blue-500'>.</span></Link>
         </div>
 
         <ul className='hidden lg:flex gap-10 text-white' >
