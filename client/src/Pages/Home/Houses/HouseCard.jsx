@@ -6,11 +6,11 @@ const HouseCard = ({ house }) => {
 
     return <div>
         <div className="relative">
-            <div className="overflow-hidden w-full h-60">
-                <img className="w-full h-full hover:scale-110 transition-all duration-500" src={picture} alt="" />
+            <div className="overflow-hidden w-full h-60 rounded-lg">
+                <img className="w-full h-full hover:scale-110 transition-all duration-500 rounded-lg" src={picture} alt="" />
             </div>
 
-            <div className="bg-white p-3 absolute right-0 -bottom-8 w-11/12">
+            <div className="bg-white p-3 absolute right-0 -bottom-8 w-11/12 rounded-tl-lg">
                 <h3 className="font-bold text-lg">{name.length > 40 ? name.slice(0, 40) + "...." : name}</h3>
                 <div className="flex justify-between items-center mt-1">
                     <p className="font-semibold text-xs">${rentPerMonth}/month</p>

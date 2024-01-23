@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { IoFunnelSharp } from "react-icons/io5";
 import './houses.css';
 import useGetPublic from "../../../hooks/useGetPublic";
@@ -13,13 +13,28 @@ const Houses = () => {
     const [minRent, setMinRent] = useState(400);
     const [maxRent, setMaxRent] = useState(12000);
 
-    //Menu control
-    const [isFilterVisible, setIsFilterVisible] = useState(false);
+    //Filter logics
+    const [availableOnly, setAvailableOnly] = useState(false);
+    const [selectedCity, setSelectedCity] = useState('');
+    const [roomSize, setRoomSize] = useState('');
+    const [bedRooms, setBedRooms] = useState(null);
+
+
+    //Pagination
+    const dataPerPage = 8;
+    const { data: total } = useGetPublic(["totalData"], `/api/houses/total`) || 0;
+    const totalPages = Math.ceil(total?.total / dataPerPage) || 0;
+    const pages = [...Array(totalPages).keys()];
+    const [currentPage, setCurrentPage] = useState(0);
 
 
     //Get House Data
-    const { data: houses, isPending, refetch } = useGetPublic(["houses"], `/api/houses`);
+    const { data: houses, isPending, refetch } = useGetPublic(["houses"], `/api/houses?page=${currentPage}&limit=${dataPerPage}&availability=${availableOnly}&city=${selectedCity}&size=${roomSize}&bedRooms=${bedRooms}`);
 
+    //Refetch data after certain filter
+    useEffect(() => {
+        refetch();
+    }, [currentPage, availableOnly, selectedCity, roomSize, bedRooms]);
 
 
 
@@ -51,17 +66,17 @@ const Houses = () => {
 
                             {/* Availability */}
                             <div className="flex gap-1 font-semibold items-center my-10 ">
-                                <input className="w-4 h-4 cursor-pointer" type="checkbox" name="availability" id="availability" />  <span>Currently Available Only</span>
+                                <input onChange={(e) => setAvailableOnly(e.target.checked)} className="w-4 h-4 cursor-pointer" type="checkbox" name="availability" id="availability" />  <span>Currently Available Only</span>
                             </div>
 
                             {/* City */}
-                            <select name="city" id="city" defaultValue="" className=" border w-full cursor-pointer outline-none border-primary px-3 py-2 rounded">
+                            <select onChange={(e) => setSelectedCity(e.target.value)} name="city" id="city" defaultValue="" className=" border w-full cursor-pointer outline-none border-primary px-3 py-2 rounded">
                                 <option value="" disabled>City</option>
-                                <option value="Any" >Any</option>
-                                <option value="Dhaka"  >Dhaka</option>
-                                <option value="Chittagong" >Chittagong</option>
-                                <option value="Sylhet" >Sylhet</option>
-                                <option value="Chandpur" >Chandpur</option>
+                                <option value="any" >Any</option>
+                                <option value="dhaka"  >Dhaka</option>
+                                <option value="chittagong" >Chittagong</option>
+                                <option value="sylhet" >Sylhet</option>
+                                <option value="chandpur" >Chandpur</option>
                             </select>
 
 
@@ -71,30 +86,30 @@ const Houses = () => {
                                 <div>
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="size" className="radio radio-primary" />
+                                        <input onChange={() => setRoomSize('any')} type="radio" name="size" className="radio radio-primary" />
                                         <span className="font-semibold">Any</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="size" className="radio radio-primary" />
+                                        <input onChange={() => setRoomSize("small")} type="radio" name="size" className="radio radio-primary" />
                                         <span className="font-semibold">Small</span>
                                     </div>
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="size" className="radio radio-primary" />
+                                        <input onChange={() => setRoomSize("medium")} type="radio" name="size" className="radio radio-primary" />
                                         <span className="font-semibold">Medium</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="size" className="radio radio-primary" />
+                                        <input onChange={() => setRoomSize("large")} type="radio" name="size" className="radio radio-primary" />
                                         <span className="font-semibold">Large</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="size" className="radio radio-primary" />
+                                        <input onChange={() => setRoomSize("extra-large")} type="radio" name="size" className="radio radio-primary" />
                                         <span className="font-semibold">Extra Large</span>
                                     </div>
                                 </div>
@@ -107,24 +122,24 @@ const Houses = () => {
                                 <div>
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bedrooms" className="radio radio-primary" />
+                                        <input type="radio" onChange={() => setBedRooms("any")} name="bedrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">Any</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bedrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBedRooms("0, 2")} type="radio" name="bedrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">0-2</span>
                                     </div>
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bedrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBedRooms("3, 5")} type="radio" name="bedrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">3-5</span>
                                     </div>
 
 
                                     <div className="flex gap-1 items-center mt-3">
-                                        <input type="radio" name="bedrooms" className="radio radio-primary" />
+                                        <input onChange={() => setBedRooms("5")} type="radio" name="bedrooms" className="radio radio-primary" />
                                         <span className="font-semibold tracking-widest">5+</span>
                                     </div>
 
@@ -203,12 +218,33 @@ const Houses = () => {
             <div>
                 {
                     isPending ? <NoDataLoader /> :
-                        houses.length > 0 && <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        houses?.length > 0 ? <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
                             {
                                 houses?.map(house => <HouseCard key={house._id} house={house} />)
                             }
-                        </div>
+                        </div> :
+                            <div>
+                                <h3 className="text-center my-20 text-3xl font-semibold text-gray-500">No data found!</h3>
+                            </div>
                 }
+            </div>
+
+
+            {/* Pagination */}
+            <div className="flex justify-center mt-20">
+                <div className="join">
+                    <button onClick={() => {
+                        currentPage > 0 && setCurrentPage(currentPage - 1);
+                    }}
+                        className="join-item btn">«</button>
+                    {pages?.map(page => {
+                        return <button key={page} onClick={() => setCurrentPage(page)} className={`join-item btn ${currentPage === page && "bg-blue-600 text-white hover:text-black"}`}>{page}</button>
+                    })}
+                    <button onClick={() => {
+                        currentPage < pages?.length - 1 && setCurrentPage(currentPage + 1);
+                    }}
+                        className="join-item btn">»</button>
+                </div>
             </div>
 
 
