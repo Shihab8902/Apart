@@ -62,7 +62,11 @@ const Nav = () => {
                             <div>
                                 <p className='text-center font-semibold mt-2 text-xs'>{user?.name}</p>
                                 <p className='text-center font-semibold text-xs'>{user?.email}</p>
-                                <p className='text-primary font-semibold my-3 text-sm hover:underline text-center'><Link to="/dashboard">Dashboard</Link></p>
+                                {
+                                    user?.role === "House Owner" ?
+                                        <p className='text-primary font-semibold my-3 text-sm hover:underline text-center'><Link to="/dashboard/ownerDashboard">Dashboard</Link></p>
+                                        : <p className='text-primary font-semibold my-3 text-sm hover:underline text-center'><Link to="/dashboard/renterDashboard">Dashboard</Link></p>
+                                }
                                 <button onClick={handleLogOut} className='w-full bg-red-600 text-white font-semibold py-2 rounded-lg'>Logout</button>
                             </div>
                         </ul>

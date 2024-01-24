@@ -3,6 +3,11 @@ import Root from "../Layouts/Root/Root";
 import Home from "../Pages/Home/Home";
 import Register from "../Pages/Register/Register";
 import Login from "../Pages/Login/Login";
+import Dashboard from "../Layouts/Dashboard/Dashboard";
+import OwnerDashboard from "../Pages/Dashbord/Owner/OwnerDashboard";
+import AddNewHouse from "../Pages/Dashbord/Owner/AddNewHouse";
+import EditListing from "../Pages/Dashbord/Owner/EditListing";
+import axios from "axios";
 
 export const router = createBrowserRouter([
     {
@@ -20,6 +25,25 @@ export const router = createBrowserRouter([
             {
                 path: "/login",
                 element: <Login />
+            }
+        ]
+    },
+    {
+        path: "/dashboard",
+        element: <Dashboard />,
+        children: [
+            {
+                path: "/dashboard/ownerDashboard",
+                element: <OwnerDashboard />
+            },
+            {
+                path: "/dashboard/new",
+                element: <AddNewHouse />
+            },
+            {
+                path: "/dashboard/edit/:id",
+                element: <EditListing />,
+                loader: ({ params }) => axios.get(`http://localhost:9000/api/house/${params.id}`)
             }
         ]
     }

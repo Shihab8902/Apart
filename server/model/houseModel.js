@@ -51,7 +51,7 @@ const houseSchema = new mongoose.Schema({
     },
     isAvailable: {
         type: Boolean,
-        require: true
+
     },
     listedOn: {
         type: Date,
