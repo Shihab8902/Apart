@@ -3,6 +3,7 @@ import { FaHouseChimneyWindow } from "react-icons/fa6";
 import { FaClipboardList } from "react-icons/fa";
 import { TiHome } from "react-icons/ti";
 import "./dashboard.css";
+import { MdOutlineFormatListNumbered } from "react-icons/md";
 import { useContext } from "react";
 import { RiMenu3Fill } from "react-icons/ri";
 import { UserContext } from "../../context/AuthProvider";
@@ -36,9 +37,13 @@ const Dashboard = () => {
                         user?.role === "House Owner" ?
                             <>
                                 <NavLink className="flex items-center gap-2 bg-white border-2 w-full py-3 px-5 rounded font-semibold " to="/dashboard/ownerDashboard"><FaHouseChimneyWindow className="text-xl" /> My listed houses</NavLink>
+                                <NavLink className="flex items-center gap-2 bg-white border-2 w-full py-3 px-5 rounded font-semibold  mt-5" to="/dashboard/ownerBookings"><MdOutlineFormatListNumbered className="text-xl" /> My Bookings</NavLink>
                                 <NavLink className="flex items-center gap-2 bg-white border-2 w-full py-3 px-5 rounded font-semibold  mt-5" to="/dashboard/new"><FaClipboardList className="text-xl" /> Add a new house</NavLink>
                             </>
-                            : ""
+                            : <>
+                                <NavLink className="flex items-center gap-2 bg-white border-2 w-full py-3 px-5 rounded font-semibold " to="/dashboard/renterDashboard"><FaClipboardList className="text-xl" /> My Bookings</NavLink>
+
+                            </>
                     }
                     <hr className="mt-20 border-b-2 border-black" />
 

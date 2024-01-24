@@ -63,7 +63,7 @@ const AddNewHouse = () => {
                                     timer: 1500
                                 });
                                 setIsAdding(false);
-                                navigate("/");
+                                navigate("/dashboard/ownerDashboard");
                             }
                         })
                 }

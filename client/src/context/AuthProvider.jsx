@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
                                 showConfirmButton: false,
                                 timer: 1500
                             });
-                            return window.location.replace("/");
+                            return window.location.replace(user?.role === "House Owner" ? "/dashboard/ownerDashboard" : "/dashboard/renterDashboard");
                         })
 
                 } else {
